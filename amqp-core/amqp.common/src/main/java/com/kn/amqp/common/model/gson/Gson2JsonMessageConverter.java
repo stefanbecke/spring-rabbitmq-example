@@ -26,7 +26,7 @@ public class Gson2JsonMessageConverter extends AbstractJsonMessageConverter {
 
     @Override
     protected Message createMessage(Object object, MessageProperties messageProperties) {
-        byte[] bytes = null;
+        byte[] bytes;
         try {
             String jsonString = gson.toJson(object);
             bytes = jsonString.getBytes(getDefaultCharset());
@@ -39,6 +39,7 @@ public class Gson2JsonMessageConverter extends AbstractJsonMessageConverter {
             messageProperties.setContentLength(bytes.length);
         }
         classMapper.fromClass(object.getClass(), messageProperties);
+
         return new Message(bytes, messageProperties);
     }
 

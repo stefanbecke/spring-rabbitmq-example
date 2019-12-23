@@ -9,3 +9,8 @@
 
 ## TODO
 0) Tests 
+
+## Links
+https://github.com/rabbitmq/rabbitmq-jms-client-spring-boot-trader-demo
+
+https://www.rabbitmq.com/jms-client.html

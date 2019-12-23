@@ -3,7 +3,8 @@ version: '2.1'
 services:
 
   rabbitmq:
-    image: "rabbitmq:3-management"
+    build: ./amqp-core/amqp.service/src/main/resources
+    image: "rabbitmq:3-jms"
     hostname: "rabbitmq"
     environment:
       RABBITMQ_DEFAULT_USER: "rabbitmq"

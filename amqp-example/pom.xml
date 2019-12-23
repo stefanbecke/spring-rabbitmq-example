@@ -13,8 +13,8 @@
     <packaging>pom</packaging>
 
     <modules>
-        <module>amqp-testapplication-core</module>
-        <module>amqp-testapplication-monitoring</module>
+        <module>amqp-testapplication-sender</module>
+        <module>amqp-testapplication-receiver</module>
     </modules>
 
 </project>
