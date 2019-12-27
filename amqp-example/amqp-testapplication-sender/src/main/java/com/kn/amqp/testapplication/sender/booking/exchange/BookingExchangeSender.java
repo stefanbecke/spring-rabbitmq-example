@@ -12,19 +12,16 @@ import org.springframework.transaction.event.TransactionalEventListener;
 
 import com.kn.amqp.common.model.AmqpConstants;
 import com.kn.amqp.common.model.events.BookingCreatedEvent;
-import com.kn.amqp.common.model.gson.AmqpDefaultMessagePostProcessor;
 
 @Component
-public class BookingSender {
+public class BookingExchangeSender {
 
-	private Logger logger = LoggerFactory.getLogger(BookingSender.class);
+	private Logger logger = LoggerFactory.getLogger(BookingExchangeSender.class);
 
 	private AmqpTemplate amqpTemplate;
 
-	private AmqpDefaultMessagePostProcessor messagePostProcessor = new AmqpDefaultMessagePostProcessor();
-
 	@Autowired
-	public BookingSender(final AmqpTemplate amqpTemplate ) {
+	public BookingExchangeSender(final AmqpTemplate amqpTemplate ) {
 		this.amqpTemplate = amqpTemplate;
 	}
 
@@ -32,7 +29,10 @@ public class BookingSender {
     @TransactionalEventListener(phase = TransactionPhase.AFTER_COMMIT)
     @Async("messagePublishExecutor")
 	public void send(final BookingCreatedEvent event) {
-		amqpTemplate.convertAndSend( AmqpConstants.EXCHANGE_BOOKING, AmqpConstants.ROUTINGKEY_BOOKING_CREATED, event, messagePostProcessor);
-        logger.info("Published event '{}' to exchange '{}' with routingKey '{}'", event, AmqpConstants.EXCHANGE_BOOKING, AmqpConstants.ROUTINGKEY_BOOKING_CREATED);
+		amqpTemplate.convertAndSend( AmqpConstants.EXCHANGE_BOOKING,
+                AmqpConstants.ROUTINGKEY_BOOKING_CREATED,
+                event,
+                new BookingMessagePostProcessor(event.getConsigneeName()));
+        logger.info("Published event '{}' to exchange '{}' ", event, AmqpConstants.EXCHANGE_BOOKING);
 	}
 }
