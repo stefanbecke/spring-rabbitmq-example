@@ -31,7 +31,7 @@
         <findbugs.version>2.9.0</findbugs.version>
         <immutables.version>2.4.6</immutables.version>
 		<swagger-springfox.version>2.6.1</swagger-springfox.version>
-		<rabbitmq-jms.version>1.13.0</rabbitmq-jms.version>
+		<rabbitmq-jms.version>1.15.2</rabbitmq-jms.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
